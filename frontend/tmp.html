@@ -331,6 +331,27 @@
             font-weight: 500;
             color: var(--gcp-text-secondary);
         }
+
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--gcp-blue);
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            animation: spin 1s linear infinite;
+            display: none;
+            /* Hidden by default */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -442,7 +463,8 @@
                     <h3>Model Behavior</h3>
                 </summary>
                 <div class="details-content">
-                    <p class="md-typescale-body-medium" style="margin-top: 0; margin-bottom: 16px;">Model response type
+                    <p class="md-typescale-body-medium" style="margin-top: 0; margin-bottom: 16px;">Model response
+                        type
                     </p>
                     <form>
                         <md-radio id="audio-radio" name="responseModality" value="AUDIO" checked></md-radio>
@@ -456,52 +478,6 @@
                         rows="3"></md-outlined-text-field>
                 </div>
             </details>
-
-            <div class="config-section" hidden>
-                <h3>Outputs</h3>
-                <div class="form-grid">
-                    <md-outlined-select label="Voice Name" id="voiceName">
-                        <md-select-option selected value="puck">
-                            <div slot="headline">puck</div>
-                        </md-select-option>
-                        <md-select-option value="charon">
-                            <div slot="headline">charon</div>
-                        </md-select-option>
-                        <md-select-option value="kore">
-                            <div slot="headline">kore</div>
-                        </md-select-option>
-                        <md-select-option value="fenrir">
-                            <div slot="headline">fenrir</div>
-                        </md-select-option>
-                        <md-select-option value="aoede">
-                            <div slot="headline">aoede</div>
-                        </md-select-option>
-                        <md-select-option value="orus">
-                            <div slot="headline">orus</div>
-                        </md-select-option>
-                        <md-select-option value="zephyr">
-                            <div slot="headline">zephyr</div>
-                        </md-select-option>
-                        <md-select-option value="leda">
-                            <div slot="headline">leda</div>
-                        </md-select-option>
-                    </md-outlined-select>
-                    <md-outlined-select label="Voice Locale" id="voiceLocale">
-                        <md-select-option selected value="en-US">
-                            <div slot="headline">en-US</div>
-                        </md-select-option>
-                        <md-select-option value="de-DE">
-                            <div slot="headline">de-DE</div>
-                        </md-select-option>
-                        <md-select-option value="en-AU">
-                            <div slot="headline">en-AU</div>
-                        </md-select-option>
-                        <md-select-option value="en-GB">
-                            <div slot="headline">en-GB</div>
-                        </md-select-option>
-                    </md-outlined-select>
-                </div>
-            </div>
 
             <div class="config-section">
                 <h3>Branded Voice</h3>
@@ -520,7 +496,7 @@
                 </div>
             </div>
 
-            <details class="config-section" hidden>
+            <details class="config-section">
                 <details class="config-section" hidden>
                     <summary>
                         <h3>Advanced Settings</h3>
@@ -704,22 +680,19 @@
         }
 
         function simulateProcessing(voiceName) {
-            setTimeout(() => {
-                const newOption = document.createElement('option');
-                const optionValue = voiceName.toLowerCase().replace(/\s/g, '-');
-                newOption.value = optionValue;
-                newOption.textContent = voiceName;
-                newOption.selected = true; // Select the new voice automatically
-                voiceDropdown.appendChild(newOption);
+            const newOption = document.createElement('option');
+            const optionValue = voiceName.toLowerCase().replace(/\s/g, '-');
+            newOption.value = optionValue;
+            newOption.textContent = voiceName;
+            newOption.selected = true; // Select the new voice automatically
+            voiceDropdown.appendChild(newOption);
 
+            setTimeout(() => {
                 alert(`New branded voice "${voiceName}" has been created and selected!`);
                 closeModal();
             }, 3000); // Simulate 3 seconds of processing
         }
     </script>
-
-
-
 </body>
 
 </html>
